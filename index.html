@@ -1,144 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>PCe System — Personal Cognitive Environment</title>
-        <meta name="description" content="PCe System — the Personal Cognitive Environment hardware and software layer of Umbra-Noesis, designed for local-first cognition, resilience, and human–AI co-workflows."/>
-        <!-- Font Awesome (icons) -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer"/>
-        <!-- Tailwind CDN (matches main site utility classes) -->
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body class="bg-slate-950 text-slate-100 antialiased">
-        <!-- Page wrapper -->
-        <div class="min-h-screen flex flex-col">
-            <!-- Top bar / nav -->
-            <header class="border-b border-slate-800/70 bg-slate-950/80 backdrop-blur">
-                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
-                    <!-- Brand --><a href="index.html" class="flex items-center gap-2 group"> <div class="h-9 w-9 rounded-xl border border-slate-700 bg-slate-900/80 flex items-center justify-center text-xs font-semibold tracking-tight">
-                            <img src="assets/img/ChatGPT%20Image%20Dec%206%2C%202025%2C%2002_54_45%20AM.png"/>
-                        </div> <div class="flex flex-col leading-tight">
-                            <span class="text-sm font-semibold tracking-wide text-slate-50 group-hover:text-[#B87333] transition-colors">
-              Umbra-Noesis </span><span class="text-[11px] text-slate-400">
-              Personal Cognitive Environment </span>
-                        </div> </a>
-                    <!-- Back to ecosystem pill --><a href="https://umbra-noesis.com" class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-100 hover:border-[#B87333] hover:text-[#B87333] hover:bg-slate-900 transition-colors"> <i class="fa-solid fa-arrow-left text-[11px]"></i> <span>Back to Umbra-Noesis Ecosystem</span> </a>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>PCe Systems — Personal Cognitive Environment</title>
+    <meta name="description" content="PCe Systems is the hardware layer of Umbra-Noesis — purpose-built configurations for local AI inference, resilient storage, and on-device cognition as a first-class workload."/>
+    <meta property="og:title" content="PCe Systems — Personal Cognitive Environment"/>
+    <meta property="og:description" content="Hardware designed around cognition — not the other way around. Local-first. Built for the Umbra-Noesis stack."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://pce-system.com/"/>
+    <link rel="icon" href="assets/img/pce-logo.png" type="image/png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+        :root { --copper: #B87333; --gold: #C9940A; --blue: #00B4D8; }
+
+        body { background-color: #000000; font-family: ui-sans-serif, system-ui, sans-serif; }
+        .font-display { font-family: 'Chakra Petch', ui-sans-serif, sans-serif; }
+        .font-hud     { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+        /* ── Circuit hero — deep copper (hardware / physical layer) ── */
+        .circuit-hero {
+            background-color: #000000;
+            background-image:
+                linear-gradient(rgba(185,115,51,0.065) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(185,115,51,0.065) 1px, transparent 1px),
+                radial-gradient(ellipse at 6% 55%, rgba(185,115,51,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 92% 18%, rgba(185,115,51,0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 90%, rgba(0,180,216,0.05) 0%, transparent 40%);
+            background-size: 44px 44px, 44px 44px, 100% 100%, 100% 100%, 100% 100%;
+        }
+
+        .bg-card { background-color: #0D1117; }
+
+        .ring-copper { border: 1px solid rgba(185,115,51,0.55); box-shadow: 0 0 14px rgba(185,115,51,0.3), inset 0 0 14px rgba(185,115,51,0.04); }
+        .ring-blue   { border: 1px solid rgba(0,180,216,0.45);  box-shadow: 0 0 14px rgba(0,180,216,0.25), inset 0 0 14px rgba(0,180,216,0.04); }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: linear-gradient(135deg, #B87333, #9A6128);
+            color: #000; font-weight: 700; font-size: 0.875rem;
+            padding: 0.75rem 1.5rem; border-radius: 0.75rem;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #C9940A, #B87333);
+            box-shadow: 0 0 28px rgba(185,115,51,0.65), 0 0 55px rgba(185,115,51,0.25);
+            transform: translateY(-1px);
+        }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid rgba(185,115,51,0.45); color: #B87333;
+            font-weight: 600; font-size: 0.875rem;
+            padding: 0.75rem 1.5rem; border-radius: 0.75rem;
+            transition: all 0.3s ease; text-decoration: none; background: transparent;
+        }
+        .btn-ghost:hover {
+            border-color: #B87333;
+            box-shadow: 0 0 22px rgba(185,115,51,0.4), 0 0 44px rgba(185,115,51,0.15);
+            color: #C9940A; background: rgba(185,115,51,0.07);
+            transform: translateY(-1px);
+        }
+        .btn-nav {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid rgba(185,115,51,0.3); color: #B87333;
+            font-weight: 500; font-size: 0.75rem;
+            padding: 0.375rem 0.875rem; border-radius: 9999px;
+            transition: all 0.25s ease; text-decoration: none; background: transparent;
+        }
+        .btn-nav:hover { border-color: #B87333; box-shadow: 0 0 16px rgba(185,115,51,0.35); color: #C9940A; }
+
+        .card {
+            background: #0D1117; border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 1rem; transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: rgba(185,115,51,0.35);
+            box-shadow: 0 0 22px rgba(185,115,51,0.1), 0 8px 32px rgba(0,0,0,0.45);
+            transform: translateY(-2px);
+        }
+        .card-blue:hover {
+            border-color: rgba(0,180,216,0.3);
+            box-shadow: 0 0 22px rgba(0,180,216,0.1), 0 8px 32px rgba(0,0,0,0.45);
+        }
+
+        .text-copper      { color: #B87333; }
+        .text-gold        { color: #C9940A; }
+        .text-blue        { color: #00B4D8; }
+        .text-glow-copper { color: #B87333; text-shadow: 0 0 24px rgba(185,115,51,0.5); }
+        .text-glow-blue   { color: #00B4D8; text-shadow: 0 0 24px rgba(0,180,216,0.5); }
+
+        .divider      { height: 1px; background: linear-gradient(90deg, transparent, rgba(185,115,51,0.3), transparent); }
+        .divider-blue { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,180,216,0.2), transparent); }
+
+        .nav-bar { border-bottom: 1px solid rgba(185,115,51,0.1); box-shadow: 0 1px 24px rgba(185,115,51,0.05); }
+
+        .pulse-dot {
+            display: inline-block; height: 0.5rem; width: 0.5rem;
+            border-radius: 9999px; background: #B87333; animation: pulse 2.2s infinite;
+        }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(185,115,51,0.55); }
+            70%  { box-shadow: 0 0 0 7px rgba(185,115,51,0); }
+            100% { box-shadow: 0 0 0 0 rgba(185,115,51,0); }
+        }
+
+        .badge-copper {
+            background: rgba(185,115,51,0.12); border: 1px solid rgba(185,115,51,0.35);
+            color: #B87333; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.2rem 0.65rem; border-radius: 9999px;
+        }
+        .badge-blue {
+            background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.3);
+            color: #00B4D8; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.2rem 0.65rem; border-radius: 9999px;
+        }
+
+        /* ── Spec row ── */
+        .spec-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.75rem 1rem; border-radius: 0.75rem;
+            background: #0D1117; border: 1px solid rgba(255,255,255,0.05);
+            transition: border-color 0.2s ease;
+        }
+        .spec-row:hover { border-color: rgba(185,115,51,0.25); }
+
+        /* ── Tier card ── */
+        .tier-card {
+            background: #0D1117; border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 1rem; padding: 1.5rem;
+            transition: all 0.3s ease; display: flex; flex-direction: column;
+        }
+        .tier-card:hover {
+            border-color: rgba(185,115,51,0.35);
+            box-shadow: 0 0 28px rgba(185,115,51,0.08), 0 8px 40px rgba(0,0,0,0.5);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="text-slate-100 antialiased">
+
+<!-- ── Nav ── -->
+<header class="nav-bar sticky top-0 z-50" style="background: rgba(0,0,0,0.88); backdrop-filter: blur(14px);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+        <a href="index.html" class="flex items-center gap-3 group">
+            <div style="width:36px;height:36px;border-radius:0.6rem;overflow:hidden;border:1px solid rgba(185,115,51,0.35);background:rgba(185,115,51,0.06);display:flex;align-items:center;justify-content:center;">
+                <img src="assets/img/pce-logo.png" alt="PCe Systems" style="width:30px;height:30px;object-fit:contain;"/>
+            </div>
+            <div class="flex flex-col leading-tight">
+                <span class="font-display font-semibold text-sm tracking-wide text-glow-copper">PCe Systems</span>
+                <span class="font-hud text-[10px] text-slate-500 tracking-widest uppercase">Personal Cognitive Environment</span>
+            </div>
+        </a>
+        <nav class="flex items-center gap-2">
+            <a href="https://eve-systems.com" class="btn-nav hidden sm:inline-flex"><i class="fa-solid fa-download text-[10px]"></i> Get EVE OS</a>
+            <a href="https://umbra-noesis.com" class="btn-nav"><i class="fa-solid fa-arrow-left text-[10px]"></i> Umbra-Noesis</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="circuit-hero py-16 sm:py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Left: copy -->
+            <div>
+                <p class="font-hud text-xs tracking-[0.28em] uppercase mb-5" style="color:rgba(185,115,51,0.75);">
+                    Umbra-Noesis · Hardware Layer
+                </p>
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight text-slate-50 mb-6">
+                    Hardware built<br/>
+                    <span class="text-glow-copper">for cognition.</span><br/>
+                    <span class="text-glow-blue">Not borrowed for it.</span>
+                </h1>
+                <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-lg">
+                    PCe Systems is the hardware layer of Umbra-Noesis — documented configurations where storage, GPU, memory, and OS are arranged to treat <span style="color:#B87333;">local AI inference as a first-class workload</span>, not an afterthought.
+                </p>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <a href="mailto:umbra-noesis@pm.me" class="btn-primary font-display">
+                        <i class="fa-solid fa-envelope text-sm"></i> Hardware Inquiries
+                    </a>
+                    <a href="https://eve-systems.com" class="btn-ghost font-display">
+                        <i class="fa-solid fa-download text-sm"></i> Get EVE OS Now
+                    </a>
                 </div>
-            </header>
-            <!-- Main content -->
-            <main class="flex-1">
-                <section class="py-10 sm:py-14">
-                    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <!-- Hero -->
-                        <div class="max-w-3xl">
-                            <p class="text-xs font-semibold tracking-[0.22em] text-[#B87333] uppercase mb-3">
-              PCe System </p>
-                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-50 mb-4">
-              Personal Cognitive Environment </h1>
-                            <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-6">
-              PCe is the hardware and operating environment designed specifically for <span class="text-[#B87333]">local-first cognition</span>. It’s where your machine stops being “a PC”
-              and becomes a <span class="text-[#B87333]">dedicated cognitive instrument</span> for you and your AI. </p>
-                            <div class="flex flex-wrap gap-3 mb-8"><span class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/90 px-3 py-1 text-xs font-medium text-slate-200"> <i class="fa-solid fa-microchip text-[11px]"></i>
-                Tuned hardware + stack </span><span class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/90 px-3 py-1 text-xs font-medium text-slate-200"> <i class="fa-solid fa-shield-alt text-[11px]"></i>
-                Local-first, privacy-anchored </span><span class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/90 px-3 py-1 text-xs font-medium text-slate-200"> <i class="fa-solid fa-diagram-project text-[11px]"></i>
-                Built for Umbra-Noesis stack </span>
-                            </div>
-                        </div>
-                        <!-- Status / Updates (lightweight, no CMS) -->
-                        <div class="mt-2 mb-6">
-                            <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 sm:p-5">
-                                <p class="text-xs font-semibold tracking-[0.22em] text-[#B87333] uppercase mb-2">
-      Project Status </p>
-                                <p class="text-sm sm:text-base text-slate-200 mb-1">
-      Available — Linux release </p>
-                                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-      EVAA local AI assistant available for Linux. Updated June 2026. </p>
-                            </div>
-                        </div>
-                        <!-- Two-column content -->
-                        <div class="grid gap-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] mt-4">
-                            <!-- Left: explanation -->
-                            <div class="space-y-6">
-                                <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/40">
-                                    <h2 class="text-lg sm:text-xl font-semibold text-slate-50 mb-3">
-                  What is the PCe System? </h2>
-                                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-3">
-                  The PCe System (Personal Cognitive Environment) is the <span class="text-[#B87333]">physical and logical home</span>
-                  for your Umbra-Noesis stack. It defines how storage, GPUs, memory, and the OS are arranged to prioritize: </p>
-                                    <ul class="list-disc list-inside text-sm sm:text-base text-slate-300 space-y-1.5">
-                                        <li>Low-latency local AI inference as a first-class workload.</li>
-                                        <li>Resilient storage layouts for long-term cognitive archives.</li>
-                                        <li>Predictable performance across multi-node deployments.</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 sm:p-6">
-                                    <h3 class="text-sm font-semibold text-slate-100 mb-2">
-                  Roles inside the ecosystem </h3>
-                                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">
-                  PCe is where the Umbra-Noesis concepts become metal:
-                  Genesis, MobileCore, PCe_FE, future racks and nodes. Each PCe profile is a <span class="text-[#B87333]">documented, repeatable build</span> that can be deployed, shipped, or licensed. </p>
-                                    <div class="grid gap-3 sm:grid-cols-3 text-xs sm:text-sm">
-                                        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                                            <p class="font-semibold text-slate-100 mb-1">Founders / Lab</p>
-                                            <p class="text-slate-300">
-                      High-end nodes for development, deep testing, and long-horizon experiments. </p>
-                                        </div>
-                                        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                                            <p class="font-semibold text-slate-100 mb-1">Field / Mobile</p>
-                                            <p class="text-slate-300">
-                      MobileCore-style builds for working from tugs, trucks, or remote cabins. </p>
-                                        </div>
-                                        <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                                            <p class="font-semibold text-slate-100 mb-1">Client / PCe Kits</p>
-                                            <p class="text-slate-300">
-                      Future turnkey systems or blueprints derived from the same architecture. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Right: roadmap / cards -->
-                            <aside class="space-y-4">
-                                <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/30">
-                                    <h2 class="text-sm sm:text-base font-semibold text-slate-50 mb-2">
-                  PCe Roadmap (High Level) </h2>
-                                    <ul class="text-xs sm:text-sm text-slate-300 space-y-2">
-                                        <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-[#B87333]"></span><span><span class="font-semibold text-slate-100">PCe_FE Prototype</span> — internal reference build, used as the baseline Personal Cognitive Environment.</span>
-                                        </li>
-                                        <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-[#B87333]"></span><span><span class="font-semibold text-slate-100">Blueprints & Profiles</span> — documented configurations for home labs, field rigs, and racks.</span>
-                                        </li>
-                                        <li class="flex gap-2"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-[#B87333]"></span><span><span class="font-semibold text-slate-100">PCe Product Line</span> — future kits, reference builds, or licensed designs derived from Umbra-Noesis.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 sm:p-5">
-                                    <h3 class="text-xs font-semibold tracking-[0.22em] text-[#B87333] uppercase mb-2">
-                  Integration Points </h3>
-                                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">
-                  PCe is designed to host: </p>
-                                    <ul class="text-xs sm:text-sm text-slate-300 space-y-1.5">
-                                        <li>EVE OS (EVE OS) as the base environment.</li>
-                                        <li>EVAA Cognition as the resident local AI layer.</li>
-                                        <li>EVE Systems and training stacks as optional modules.</li>
-                                    </ul>
-                                    <p class="text-[11px] text-slate-500 mt-3">
-                  This page is an early structural skeleton. Final product details, specs, and licensing
-                  paths will be defined as the ecosystem reaches public-ready status. </p>
-                                </div>
-                            </aside>
+                <div class="flex flex-wrap gap-2">
+                    <span class="badge-copper"><i class="fa-solid fa-microchip mr-1"></i>Inference-First</span>
+                    <span class="badge-copper"><i class="fa-solid fa-hard-drive mr-1"></i>Resilient Storage</span>
+                    <span class="badge-blue"><i class="fa-solid fa-shield-halved mr-1"></i>Local-First</span>
+                    <span class="badge-blue"><i class="fa-solid fa-sliders mr-1"></i>Documented Builds</span>
+                </div>
+            </div>
+
+            <!-- Right: PCe logo with rings -->
+            <div class="flex items-center justify-center lg:justify-end">
+                <div class="relative flex items-center justify-center" style="width:280px;height:280px;">
+                    <div class="ring-copper absolute inset-0" style="border-radius:1.5rem;"></div>
+                    <div class="ring-blue absolute" style="inset:10px;border-radius:1.25rem;"></div>
+                    <img
+                        src="assets/img/pce-logo.png"
+                        alt="PCe Systems"
+                        style="width:200px;height:200px;object-fit:contain;border-radius:1rem;position:relative;z-index:1;"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Status strip ── -->
+<div style="background:#050508;border-top:1px solid rgba(185,115,51,0.1);border-bottom:1px solid rgba(185,115,51,0.1);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center gap-x-8 gap-y-2">
+        <div class="flex items-center gap-2">
+            <span class="pulse-dot"></span>
+            <span class="font-hud text-xs text-slate-300">PCe_FE — internal reference build active</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full" style="background:rgba(0,180,216,0.5);"></span>
+            <span class="font-hud text-xs text-slate-400">Blueprints &amp; Profiles — in development</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full" style="background:rgba(185,115,51,0.35);"></span>
+            <span class="font-hud text-xs text-slate-400">PCe Product Line — roadmap</span>
+        </div>
+    </div>
+</div>
+
+<!-- ── What it is ── -->
+<section class="py-16 sm:py-20" style="background:#000000;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+            <!-- Left -->
+            <div>
+                <p class="font-hud text-xs tracking-[0.22em] uppercase mb-3 text-copper">What it is</p>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-50 mb-4">Where your system becomes a cognitive instrument</h2>
+                <p class="text-slate-300 leading-relaxed mb-5">
+                    A standard PC is optimized for general computing — browsers, office apps, occasional gaming. Running local AI inference on top of that is like running a lathe in a kitchen: technically possible, but nothing is built for it. PCe Systems defines how to arrange hardware so local inference, persistent memory, and AI-native workflows are what the machine is sized and tuned for.
+                </p>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    Each PCe profile is a documented, repeatable build specification — not a proprietary locked device. The blueprints define storage layouts, GPU configurations, memory allocation, and OS tuning so the same architecture can be reproduced across workstations, laptops, field rigs, and future licensed kits.
+                </p>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-square-check text-copper mt-0.5 text-sm"></i>
+                        <p class="text-sm text-slate-300">Low-latency local inference as a first-class, always-available workload</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-square-check text-copper mt-0.5 text-sm"></i>
+                        <p class="text-sm text-slate-300">Resilient storage layouts for long-term cognitive archives</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-square-check text-copper mt-0.5 text-sm"></i>
+                        <p class="text-sm text-slate-300">Predictable, consistent performance across deployment environments</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-square-check text-copper mt-0.5 text-sm"></i>
+                        <p class="text-sm text-slate-300">Documented builds — reproducible, shippable, licensable</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: hardware spec reference -->
+            <div>
+                <p class="font-hud text-xs tracking-[0.22em] uppercase mb-3 text-blue">Recommended Specifications</p>
+                <p class="text-xs text-slate-500 mb-4 font-hud">Baseline for EVE OS + EVAA local inference</p>
+                <div class="space-y-2">
+
+                    <div class="spec-row">
+                        <i class="fa-solid fa-microchip text-copper w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">CPU</p>
+                            <p class="text-xs text-slate-400">8-core modern processor — AMD Ryzen 7 / Intel Core i7 or equivalent</p>
                         </div>
                     </div>
-                </section>
-            </main>
-            <!-- Footer -->
-            <footer class="border-t border-slate-900 bg-slate-950/90">
-                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-                    <p class="text-[11px] text-slate-500">
-          Umbra-Noesis · PCe System — Personal Cognitive Environment </p>
-                    <p class="text-[11px] text-slate-500">
-          Part of the private Umbra-Noesis human–AI ecosystem. </p>
+
+                    <div class="spec-row">
+                        <i class="fa-solid fa-memory text-blue w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">RAM</p>
+                            <p class="text-xs text-slate-400">32 GB minimum · 64 GB+ for multi-model or concurrent workloads</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <i class="fa-solid fa-display text-copper w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">GPU</p>
+                            <p class="text-xs text-slate-400">Dedicated GPU — 8 GB VRAM minimum · 16 GB+ recommended for larger models</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <i class="fa-solid fa-hard-drive text-blue w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">Storage</p>
+                            <p class="text-xs text-slate-400">NVMe primary — 1 TB+ · Secondary archive storage recommended for memory persistence</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <i class="fa-brands fa-linux text-copper w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">Platform</p>
+                            <p class="text-xs text-slate-400">x86_64 Linux · EVE OS reference build · Ubuntu 22.04 LTS / Debian 12 base</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <i class="fa-solid fa-network-wired text-blue w-5 text-center shrink-0"></i>
+                        <div>
+                            <p class="font-display font-semibold text-xs text-slate-100">Connectivity</p>
+                            <p class="text-xs text-slate-400">Wired ethernet preferred · WiFi 6 minimum for mobile builds · offline-capable by design</p>
+                        </div>
+                    </div>
+
                 </div>
-            </footer>
+            </div>
         </div>
-    </body>
+    </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto"></div>
+
+<!-- ── Deployment tiers ── -->
+<section class="py-16 sm:py-20" style="background:#000000;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <p class="font-hud text-xs tracking-[0.22em] uppercase mb-3 text-copper">Deployment Tiers</p>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-50">One architecture. Three environments.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="tier-card">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shrink-0" style="background:rgba(185,115,51,0.1);border:1px solid rgba(185,115,51,0.25);">
+                    <i class="fa-solid fa-flask text-copper"></i>
+                </div>
+                <p class="font-display font-bold text-base text-slate-50 mb-1">Lab · Research</p>
+                <p class="font-hud text-xs text-copper mb-3 tracking-wide">High-performance builds</p>
+                <p class="text-xs text-slate-400 leading-relaxed flex-1">
+                    High-end desktop or workstation configurations for deep model testing, memory architecture development, and long-horizon experimentation. Full hardware headroom — sized for the most demanding local inference workloads.
+                </p>
+                <div class="mt-4 pt-4" style="border-top:1px solid rgba(185,115,51,0.1);">
+                    <span class="badge-copper">Blueprint — Active</span>
+                </div>
+            </div>
+
+            <div class="tier-card">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shrink-0" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.2);">
+                    <i class="fa-solid fa-anchor text-blue"></i>
+                </div>
+                <p class="font-display font-bold text-base text-slate-50 mb-1">Field · Mobile</p>
+                <p class="font-hud text-xs text-blue mb-3 tracking-wide">Mobile &amp; remote builds</p>
+                <p class="text-xs text-slate-400 leading-relaxed flex-1">
+                    Laptop and compact desktop configurations for working from boats, trucks, remote job sites, and locations where cloud connectivity is unreliable or nonexistent. Local-first by necessity — fully operational offline.
+                </p>
+                <div class="mt-4 pt-4" style="border-top:1px solid rgba(0,180,216,0.08);">
+                    <span class="badge-blue">Blueprint — Active</span>
+                </div>
+            </div>
+
+            <div class="tier-card">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shrink-0" style="background:rgba(185,115,51,0.1);border:1px solid rgba(185,115,51,0.25);">
+                    <i class="fa-solid fa-box-open text-copper"></i>
+                </div>
+                <p class="font-display font-bold text-base text-slate-50 mb-1">PCe Kits</p>
+                <p class="font-hud text-xs text-copper mb-3 tracking-wide">Licensed builds — roadmap</p>
+                <p class="text-xs text-slate-400 leading-relaxed flex-1">
+                    Future turnkey hardware kits and licensed build specifications derived from the PCe reference architecture. Reproducible configurations that can be shipped, deployed, or licensed to operators building on the Umbra-Noesis stack.
+                </p>
+                <div class="mt-4 pt-4" style="border-top:1px solid rgba(185,115,51,0.1);">
+                    <span class="badge-copper" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#9ca3af;">Roadmap</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto"></div>
+
+<!-- ── Roadmap + Integration ── -->
+<section class="py-16 sm:py-20" style="background:#000000;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- Roadmap -->
+            <div>
+                <p class="font-hud text-xs tracking-[0.22em] uppercase mb-3 text-copper">Roadmap</p>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-50 mb-8">Build targets</h2>
+                <div class="space-y-6">
+
+                    <div class="relative pl-6">
+                        <span class="absolute left-0 top-1.5 w-2 h-2 rounded-full" style="background:#B87333;box-shadow:0 0 8px rgba(185,115,51,0.6);"></span>
+                        <p class="font-display font-semibold text-sm text-slate-100 mb-1">PCe_FE Reference Build</p>
+                        <p class="text-xs text-slate-400 leading-relaxed">Internal reference build — the baseline Personal Cognitive Environment used for all EVE OS and EVAA development and validation.</p>
+                        <span class="badge-copper mt-2 inline-block">Internal — Active</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="relative pl-6">
+                        <span class="absolute left-0 top-1.5 w-2 h-2 rounded-full" style="background:rgba(0,180,216,0.6);"></span>
+                        <p class="font-display font-semibold text-sm text-slate-100 mb-1">Blueprints &amp; Profiles</p>
+                        <p class="text-xs text-slate-400 leading-relaxed">Documented configuration specs for lab, field, and rack deployments. Reproducible build guides covering hardware selection, OS tuning, and inference setup.</p>
+                        <span class="badge-blue mt-2 inline-block">In Development</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="relative pl-6">
+                        <span class="absolute left-0 top-1.5 w-2 h-2 rounded-full" style="background:rgba(255,255,255,0.15);"></span>
+                        <p class="font-display font-semibold text-sm text-slate-100 mb-1">PCe Product Line</p>
+                        <p class="text-xs text-slate-400 leading-relaxed">Future kits, reference builds, and licensed designs for operators building on the Umbra-Noesis architecture. Turnkey hardware matched to EVE OS certification.</p>
+                        <span class="badge-copper mt-2 inline-block" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:#9ca3af;">Roadmap</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Integration -->
+            <div>
+                <p class="font-hud text-xs tracking-[0.22em] uppercase mb-3 text-blue">Stack Integration</p>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-50 mb-8">What runs on PCe</h2>
+                <div class="space-y-4">
+
+                    <div class="flex gap-4 p-4 rounded-xl" style="background:#0D1117;border:1px solid rgba(255,255,255,0.05);">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(185,115,51,0.08);border:1px solid rgba(185,115,51,0.2);">
+                            <i class="fa-solid fa-server text-sm text-copper"></i>
+                        </div>
+                        <div>
+                            <p class="font-display font-semibold text-sm text-slate-50 mb-1">EVE OS</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">The operating system tuned to the PCe profile — storage, GPU, and memory allocated for cognition as infrastructure, not an application.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 p-4 rounded-xl" style="background:#0D1117;border:1px solid rgba(255,255,255,0.05);">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.2);">
+                            <i class="fa-solid fa-brain text-sm text-blue"></i>
+                        </div>
+                        <div>
+                            <p class="font-display font-semibold text-sm text-slate-50 mb-1">EVAA Cognition</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">The resident AI engine — runs against PCe hardware directly, with the full GPU, memory, and storage budget available for local inference.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 p-4 rounded-xl" style="background:#0D1117;border:1px solid rgba(255,255,255,0.05);">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.2);">
+                            <i class="fa-solid fa-link text-sm text-blue"></i>
+                        </div>
+                        <div>
+                            <p class="font-display font-semibold text-sm text-slate-50 mb-1">Umbra Link</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">Each PCe node carries a Node ID through Umbra Link — enabling identity-aware routing and optional mesh connectivity between units.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Callout ── -->
+<section style="background:#050508;border-top:1px solid rgba(185,115,51,0.1);border-bottom:1px solid rgba(185,115,51,0.1);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
+        <p class="font-hud text-xs tracking-[0.28em] uppercase mb-4" style="color:rgba(185,115,51,0.6);">The principle</p>
+        <p class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-slate-50 max-w-3xl mx-auto leading-snug">
+            <span class="text-glow-copper">Your hardware.</span><br/>
+            <span class="text-glow-blue">Built for the work.</span>
+        </p>
+        <p class="text-slate-400 mt-5 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+            Most AI systems are built in the cloud and squeezed onto your device. PCe Systems inverts that — the hardware is sized and tuned for local inference first, and everything else fits around it.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3 justify-center">
+            <a href="https://eve-systems.com" class="btn-primary font-display">
+                <i class="fa-solid fa-download text-sm"></i> Get EVE OS
+            </a>
+            <a href="mailto:umbra-noesis@pm.me" class="btn-ghost font-display">
+                <i class="fa-solid fa-envelope text-sm"></i> Hardware Inquiries
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer style="background:#000000;border-top:1px solid rgba(185,115,51,0.07);">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div style="width:28px;height:28px;border-radius:0.5rem;overflow:hidden;border:1px solid rgba(185,115,51,0.25);display:flex;align-items:center;justify-content:center;">
+                    <img src="assets/img/pce-logo.png" alt="PCe Systems" style="width:24px;height:24px;object-fit:contain;opacity:0.75;"/>
+                </div>
+                <div>
+                    <p class="font-display font-semibold text-sm text-slate-300">PCe Systems</p>
+                    <p class="font-hud text-[10px] text-slate-600 tracking-widest uppercase">A Division of Umbra-Noesis LLC</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://umbra-noesis.com"   class="font-hud text-xs text-slate-500 hover:text-copper transition-colors">Umbra-Noesis</a>
+                <span class="text-slate-700">·</span>
+                <a href="https://eve-systems.com"    class="font-hud text-xs text-slate-500 hover:text-copper transition-colors">EVE Systems</a>
+                <span class="text-slate-700">·</span>
+                <a href="https://evaa-cognition.com" class="font-hud text-xs text-slate-500 hover:text-copper transition-colors">EVAA</a>
+                <span class="text-slate-700">·</span>
+                <a href="https://umbra-noesis-os.net" class="font-hud text-xs text-slate-500 hover:text-copper transition-colors">EVE OS</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
 </html>
